@@ -15,7 +15,7 @@ We choose to keep the naming coming from functionnal programing instead of the L
 * [Transifex](https://www.transifex.com/projects/p/sw-name/)
 
 ## License 
-* see [LICENSE](https://github.com/username/sw-name/blob/master/LICENSE.md) file
+* see [LICENSE](https://github.com/GaelOn/Stream/LICENSE ) file
 
 ## Version 
 * Version 0.1
