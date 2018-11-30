@@ -15,13 +15,13 @@ We choose to keep the naming coming from functionnal programing instead of the L
 * [Transifex](https://www.transifex.com/projects/p/sw-name/)
 
 ## License 
-* see [LICENSE](https://github.com/GaelOn/Stream/LICENSE ) file
+* see [LICENSE](https://github.com/GaelOn/Stream/blob/master/LICENSE) file
 
 ## Version 
 * Version 0.1
 
 ## How-to use this code
-* see [INSTRUCTIONS](https://github.com/username/sw-name/blob/master/INSTRUCTIONS.md) file
+* see [INSTRUCTIONS](https://github.com/GaelOn/Stream/blob/master/INSTRUCTIONS.md) file
 
 ## Contact
 #### Developer/Company
