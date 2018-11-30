@@ -25,7 +25,9 @@
 [Bb]in
 [Dd]ebug*/
 *.lib
+*.dll
 *.sbr
+
 obj/
 [Rr]elease*/
 
