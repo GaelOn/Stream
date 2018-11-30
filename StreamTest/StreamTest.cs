@@ -123,6 +123,8 @@ namespace StreamTests
         [Test]
         public void PerfTest ()
         {
+            // this test is only meaningfull in release mode due to optimization provide by the compilation
+#if !DEBUG
             var tab = IntArrayProvider(1000000);
 
             var sw = new System.Diagnostics.Stopwatch();
@@ -151,6 +153,7 @@ namespace StreamTests
 
             (Math.Abs(result - expectedResult)).Should().BeApproximately(0, 0.001);
             time.Should().BeLessThan(maxExpectedTime);
+#endif
         }
 
         [Test]
