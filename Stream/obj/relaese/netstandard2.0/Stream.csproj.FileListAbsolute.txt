@@ -1,0 +1,8 @@
+/Users/gaeldupire/Projects/Kata-Mars-Rover/Stream/bin/relaese/netstandard2.0/Stream.deps.json
+/Users/gaeldupire/Projects/Kata-Mars-Rover/Stream/bin/relaese/netstandard2.0/Stream.dll
+/Users/gaeldupire/Projects/Kata-Mars-Rover/Stream/bin/relaese/netstandard2.0/Stream.pdb
+/Users/gaeldupire/Projects/Kata-Mars-Rover/Stream/obj/relaese/netstandard2.0/Stream.csproj.CoreCompileInputs.cache
+/Users/gaeldupire/Projects/Kata-Mars-Rover/Stream/obj/relaese/netstandard2.0/Stream.AssemblyInfoInputs.cache
+/Users/gaeldupire/Projects/Kata-Mars-Rover/Stream/obj/relaese/netstandard2.0/Stream.AssemblyInfo.cs
+/Users/gaeldupire/Projects/Kata-Mars-Rover/Stream/obj/relaese/netstandard2.0/Stream.dll
+/Users/gaeldupire/Projects/Kata-Mars-Rover/Stream/obj/relaese/netstandard2.0/Stream.pdb

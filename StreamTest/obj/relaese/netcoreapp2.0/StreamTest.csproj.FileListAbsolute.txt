@@ -1,0 +1,16 @@
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/bin/relaese/netcoreapp2.0/NUnit3.TestAdapter.dll
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/bin/relaese/netcoreapp2.0/NUnit3.TestAdapter.pdb
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/bin/relaese/netcoreapp2.0/nunit.engine.netstandard.dll
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/bin/relaese/netcoreapp2.0/Mono.Cecil.dll
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/bin/relaese/netcoreapp2.0/StreamTest.deps.json
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/bin/relaese/netcoreapp2.0/StreamTest.runtimeconfig.json
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/bin/relaese/netcoreapp2.0/StreamTest.runtimeconfig.dev.json
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/bin/relaese/netcoreapp2.0/StreamTest.dll
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/bin/relaese/netcoreapp2.0/StreamTest.pdb
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/bin/relaese/netcoreapp2.0/Stream.dll
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/bin/relaese/netcoreapp2.0/Stream.pdb
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/obj/relaese/netcoreapp2.0/StreamTest.csproj.CoreCompileInputs.cache
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/obj/relaese/netcoreapp2.0/StreamTest.AssemblyInfoInputs.cache
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/obj/relaese/netcoreapp2.0/StreamTest.AssemblyInfo.cs
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/obj/relaese/netcoreapp2.0/StreamTest.dll
+/Users/gaeldupire/Projects/Kata-Mars-Rover/StreamTest/obj/relaese/netcoreapp2.0/StreamTest.pdb

@@ -1,0 +1,30 @@
+﻿Use case:
+
+- single thread (done)
+- pipeline
+- parallel
+
+Operation:
+
+             single thread   pipeline     parallel
+- map      | Ok            | Nok        | Nok        |
+- flatmap  | Ok            | Nok        | Nok        |
+- iter     | Ok            | Nok        | Nok        |
+- filter   | Ok            | Nok        | Nok        | 
+- fold     | Ok            | Nok        | Nok        |
+- sum      | Ok            | Nok        | Nok        |
+- min      | Ok            | Nok        | Nok        |
+- max      | Ok            | Nok        | Nok        |
+- average  | Ok            | Nok        | Nok        |
+- collect  | Nok           | Nok        | Nok        |
+
+
+input output strategie:
+
+-> simple array (or everything convertible to array)
+-> comsummer producer 
+
+-> -> difficulty of multiple in/out strategy: output stragegy depend on input object (array as stream, consummer as stream)
+
+-> -> difficulty with producer consummer : dealing with aggregate (close signal ?)
+
