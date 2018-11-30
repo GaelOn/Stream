@@ -197,11 +197,11 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "pStream/1.0.0": {
+      "pStream/0.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Stream": "1.0.0"
+          "Stream": "0.1.0"
         },
         "compile": {
           "bin/placeholder/pStream.dll": {}
@@ -210,7 +210,7 @@
           "bin/placeholder/pStream.dll": {}
         }
       },
-      "Stream/1.0.0": {
+      "Stream/0.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -681,12 +681,12 @@
         "netstandard.library.nuspec"
       ]
     },
-    "pStream/1.0.0": {
+    "pStream/0.1.0": {
       "type": "project",
       "path": "../pStream/pStream.csproj",
       "msbuildProject": "../pStream/pStream.csproj"
     },
-    "Stream/1.0.0": {
+    "Stream/0.1.0": {
       "type": "project",
       "path": "../Stream/Stream.csproj",
       "msbuildProject": "../Stream/Stream.csproj"
@@ -695,8 +695,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.NETCore.App >= 2.0.0",
-      "Stream >= 1.0.0",
-      "pStream >= 1.0.0"
+      "Stream >= 0.1.0",
+      "pStream >= 0.1.0"
     ]
   },
   "packageFolders": {

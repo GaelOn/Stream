@@ -1680,11 +1680,11 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "pStream/1.0.0": {
+      "pStream/0.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Stream": "1.0.0"
+          "Stream": "0.1.0"
         },
         "compile": {
           "bin/placeholder/pStream.dll": {}
@@ -1693,7 +1693,7 @@
           "bin/placeholder/pStream.dll": {}
         }
       },
-      "Stream/1.0.0": {
+      "Stream/0.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -5805,12 +5805,12 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
-    "pStream/1.0.0": {
+    "pStream/0.1.0": {
       "type": "project",
       "path": "../pStream/pStream.csproj",
       "msbuildProject": "../pStream/pStream.csproj"
     },
-    "Stream/1.0.0": {
+    "Stream/0.1.0": {
       "type": "project",
       "path": "../Stream/Stream.csproj",
       "msbuildProject": "../Stream/Stream.csproj"
@@ -5822,9 +5822,9 @@
       "Microsoft.NET.Test.Sdk >= 15.6.0",
       "Microsoft.NETCore.App >= 2.0.0",
       "NUnit3TestAdapter >= 3.10.0",
-      "Stream >= 1.0.0",
+      "Stream >= 0.1.0",
       "nunit >= 3.9.0",
-      "pStream >= 1.0.0"
+      "pStream >= 0.1.0"
     ]
   },
   "packageFolders": {
