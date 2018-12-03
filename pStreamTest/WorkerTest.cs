@@ -58,7 +58,7 @@ namespace StreamTest
 
             var tin  = Task.Factory.StartNew(push);
             var tout = Task.Factory.StartNew(read)
-			   .ContinueWith((t) => are.Set());
+			                       .ContinueWith((t) => are.Set());
             // THEN
 	        are.WaitOne ();
             for (int i = 0; i < 9; i++) 
