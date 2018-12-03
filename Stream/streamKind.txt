@@ -17,6 +17,7 @@ Operation:
 - max      | Ok            | Nok        | Nok        |
 - average  | Ok            | Nok        | Nok        |
 - collect  | Nok           | Nok        | Nok        |
+- join     | Nok           | Nok        | Nok        |
 
 
 input output strategie:

@@ -2,5 +2,5 @@
 
 [assembly: InternalsVisibleTo("StreamTest")]
 [assembly: InternalsVisibleTo("pStreamTest")]
-[assembly: InternalsVisibleTo("StreamPerfTest")]
+[assembly: InternalsVisibleTo("StreamPerfConsole")]
 

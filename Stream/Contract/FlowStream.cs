@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Stream.Contract
+﻿namespace Stream.Contract
 {
     internal abstract class FlowStream<TIn, TOut> : Stream<TOut, TOut[]>
     {

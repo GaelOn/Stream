@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stream", "Stream\Stream.csproj", "{15FB0B62-CA83-411A-BAD8-ECA6EAACA6EA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamPerfTest", "StreamPerfTest\StreamPerfTest.csproj", "{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamTest", "StreamTest\StreamTest.csproj", "{C1D44018-4355-4A7B-AE7A-B12D95C678E4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pStream", "pStream\pStream.csproj", "{A24F990E-1693-46C3-BB7E-34F551CE5DB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pStreamTest", "pStreamTest\pStreamTest.csproj", "{1E8F77FC-0A86-4522-9A12-10DCDEEF83EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pStreamTest", "pStreamTest\pStreamTest.csproj", "{1E8F77FC-0A86-4522-9A12-10DCDEEF83EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamPerfConsole", "StreamPerfConsole\StreamPerfConsole.csproj", "{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,18 +35,6 @@ Global
 		{15FB0B62-CA83-411A-BAD8-ECA6EAACA6EA}.Release|x64.Build.0 = Release|Any CPU
 		{15FB0B62-CA83-411A-BAD8-ECA6EAACA6EA}.Release|x86.ActiveCfg = Release|Any CPU
 		{15FB0B62-CA83-411A-BAD8-ECA6EAACA6EA}.Release|x86.Build.0 = Release|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Debug|x64.Build.0 = Debug|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Debug|x86.Build.0 = Debug|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Release|x64.ActiveCfg = Release|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Release|x64.Build.0 = Release|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Release|x86.ActiveCfg = Release|Any CPU
-		{87EAE999-1DE4-423B-8F35-D8D66EC2FCE3}.Release|x86.Build.0 = Release|Any CPU
 		{C1D44018-4355-4A7B-AE7A-B12D95C678E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C1D44018-4355-4A7B-AE7A-B12D95C678E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1D44018-4355-4A7B-AE7A-B12D95C678E4}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -83,6 +71,18 @@ Global
 		{1E8F77FC-0A86-4522-9A12-10DCDEEF83EA}.Release|x64.Build.0 = Release|Any CPU
 		{1E8F77FC-0A86-4522-9A12-10DCDEEF83EA}.Release|x86.ActiveCfg = Release|Any CPU
 		{1E8F77FC-0A86-4522-9A12-10DCDEEF83EA}.Release|x86.Build.0 = Release|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Debug|x64.Build.0 = Debug|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Debug|x86.Build.0 = Debug|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Release|x64.ActiveCfg = Release|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Release|x64.Build.0 = Release|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Release|x86.ActiveCfg = Release|Any CPU
+		{D309B10A-DA0A-481B-A368-DB0A17B7DC8F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

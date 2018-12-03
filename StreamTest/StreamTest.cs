@@ -141,7 +141,7 @@ namespace StreamTests
 
             sw.Reset();
 
-            var stream = tab.AsStream()
+            var stream = tab.AsStream()git 
                             .Map(x => x * 7)
                             .Filter(x => x % 2 == 0)
                             .Average(x => x);

@@ -21,15 +21,3 @@ C:\Users\dupir\Documents\AllProjects\Projects\Kata-Mars-Rover\pStream\obj\Debug\
 C:\Users\dupir\Documents\AllProjects\Projects\Kata-Mars-Rover\pStream\obj\Debug\netstandard2.0\pStream.csproj.CopyComplete
 C:\Users\dupir\Documents\AllProjects\Projects\Kata-Mars-Rover\pStream\obj\Debug\netstandard2.0\pStream.dll
 C:\Users\dupir\Documents\AllProjects\Projects\Kata-Mars-Rover\pStream\obj\Debug\netstandard2.0\pStream.pdb
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\bin\Debug\netstandard2.0\pStream.deps.json
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\bin\Debug\netstandard2.0\pStream.dll
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\bin\Debug\netstandard2.0\pStream.pdb
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\bin\Debug\netstandard2.0\Stream.dll
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\bin\Debug\netstandard2.0\Stream.pdb
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\obj\Debug\netstandard2.0\pStream.csprojAssemblyReference.cache
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\obj\Debug\netstandard2.0\pStream.csproj.CoreCompileInputs.cache
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\obj\Debug\netstandard2.0\pStream.AssemblyInfoInputs.cache
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\obj\Debug\netstandard2.0\pStream.AssemblyInfo.cs
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\obj\Debug\netstandard2.0\pStream.csproj.CopyComplete
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\obj\Debug\netstandard2.0\pStream.dll
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\pStream\obj\Debug\netstandard2.0\pStream.pdb

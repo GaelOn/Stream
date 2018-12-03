@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using pStream.Messages;
 using pStream.WaitStrategy;
 using pStream.Contract.Workers;
-using System.Threading;
 
 namespace pStream.Workers
 {

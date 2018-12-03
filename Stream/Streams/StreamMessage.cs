@@ -1,5 +1,4 @@
-﻿using System;
-namespace Stream.Streams.Folder
+﻿namespace Stream.Streams.Folder
 {
     public enum StreamMessageKind
     {

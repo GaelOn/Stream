@@ -15,12 +15,3 @@ C:\Users\dupir\Documents\AllProjects\Projects\Kata-Mars-Rover\Stream\obj\Debug\n
 C:\Users\dupir\Documents\AllProjects\Projects\Kata-Mars-Rover\Stream\obj\Debug\netstandard2.0\Stream.AssemblyInfo.cs
 C:\Users\dupir\Documents\AllProjects\Projects\Kata-Mars-Rover\Stream\obj\Debug\netstandard2.0\Stream.dll
 C:\Users\dupir\Documents\AllProjects\Projects\Kata-Mars-Rover\Stream\obj\Debug\netstandard2.0\Stream.pdb
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\bin\Debug\netstandard2.0\Stream.deps.json
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\bin\Debug\netstandard2.0\Stream.dll
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\bin\Debug\netstandard2.0\Stream.pdb
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\obj\Debug\netstandard2.0\Stream.csprojAssemblyReference.cache
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\obj\Debug\netstandard2.0\Stream.csproj.CoreCompileInputs.cache
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\obj\Debug\netstandard2.0\Stream.AssemblyInfoInputs.cache
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\obj\Debug\netstandard2.0\Stream.AssemblyInfo.cs
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\obj\Debug\netstandard2.0\Stream.dll
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\obj\Debug\netstandard2.0\Stream.pdb

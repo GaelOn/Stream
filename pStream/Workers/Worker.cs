@@ -11,6 +11,7 @@ namespace pStream.Workers
         public Worker()
         {
             _observers = new List<IObserver<TOut>>(8);
+            iDisposables = new List<IDisposable>(8);
         }
 
         public void OnCompleted()
