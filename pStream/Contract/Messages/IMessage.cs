@@ -1,4 +1,7 @@
 ﻿namespace pStream.Messages
 {
-    internal interface IMessage { }
+    internal interface IMessage
+    {
+        void Accept(IMessageVisitor visitor);
+    }
 }

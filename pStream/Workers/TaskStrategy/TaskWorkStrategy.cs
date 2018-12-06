@@ -17,11 +17,12 @@ namespace pStream.Workers
 
         public TaskWorkStrategy(Func<TIn, TOut> funWork, Queue<IMessage> qin, IWaitStrategy wait, CancellationToken ct = default)
         {
-            _qout = new ConcurrentQueue<IMessage>();
-            var _wait = wait ?? new SleepStrategy();
-            var worker = new Work<TIn, TOut>(funWork, qin, _qout.Enqueue, _wait);
-            ct = ct == null ? CancellationToken.None : ct;
-            _task = Task.Factory.StartNew(() => worker.Start(), ct);
+            _qout                    = new ConcurrentQueue<IMessage>();
+            var _wait                = wait ?? new SleepStrategy();
+            var workerVisitorFactory = new MessageVisitorFactory();
+            var worker               = new Worker<TIn, TOut>(workerVisitorFactory, _wait, funWork, qin, _qout.Enqueue);
+            ct                       = ct == null ? CancellationToken.None : ct;
+            _task                    = Task.Factory.StartNew(() => worker.Start(), ct);
         }
 
         public void Push(IMessage input)

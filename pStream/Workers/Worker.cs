@@ -1,93 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
+using pStream.Messages;
+using pStream.WaitStrategy;
+using System.Threading;
 
 namespace pStream.Workers
 {
-    internal sealed class Worker<TIn, TOut> : IObserver<TIn>, IObservable<TOut>, IDisposable
+    internal class Worker<TIn, TOut> : IWorker<TIn>, IDisposable
     {
-        private List<IObserver<TOut>> _observers;
-        private readonly List<IDisposable> iDisposables;
+        private readonly Func<TIn, TOut> _funWork;
+        private readonly Action<IMessage> _push;
+        private Queue<IMessage> _queue;
+        private readonly IMessageVisitor _msgVisitor;
+        private IWaitStrategy _wait;
+        private bool _shouldStop;
 
-        public Worker()
+        public event OnEndOfStreamHandler OnEndOfStream;
+
+        public void RaiseOnEndOfStream() => Volatile.Read(ref OnEndOfStream)?.Invoke(this, new  EndOfStreamEventArg(EndOfStreamMessage.Value));
+
+        public void Push(IMessage msg) => _push(msg);
+
+        public IMessage DoWork(TIn entry) => new InputMessage<TOut>(_funWork(entry));
+
+        public Worker(IMessageVisitorFactory msgVisitorFactory, IWaitStrategy wait, Func<TIn, TOut> funWork, Queue<IMessage> readQueue, Action<IMessage> push)
         {
-            _observers = new List<IObserver<TOut>>(8);
-            iDisposables = new List<IDisposable>(8);
+            _queue         = readQueue;
+            _funWork       = funWork;
+            _push          = push;
+            _wait          = wait;
+            _msgVisitor    = msgVisitorFactory.Create(this);
+            OnEndOfStream += OnEndOfStreamHandler;
         }
 
-        public void OnCompleted()
-        {
-            throw new NotImplementedException();
-        }
+        public void Start() => _wait?.Run(Read);
 
-        public void OnError(Exception error)
+        public bool Read()
         {
-            throw new NotImplementedException();
-        }
-
-        public void OnNext(TIn value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDisposable Subscribe(IObserver<TOut> observer)
-        {
-            _observers.Add(observer);
-            return new Unsubscriber(_observers, observer);
-        }
-
-        public void Dispose()
-        {
-            foreach(var elem in iDisposables)
+            if (_queue == null)
             {
-                elem.Dispose();
+                return true;
             }
-        }
-
-        /// <summary>
-        /// based on https://msdn.microsoft.com/fr-fr/library/dd782981(v=vs.110).aspx
-        /// </summary>
-        private class Unsubscriber : IDisposable
-        {
-            private WeakReference<List<IObserver<TOut>>> _observers;
-            private WeakReference<IObserver<TOut>> _observer;
-            private IObserver<TOut> observerPlaceHolder;
-            private List<IObserver<TOut>> observersPlaceHolder;
-
-            private List<IObserver<TOut>> Observers
+            if (!_shouldStop)
             {
-                get
+                while (_queue.Count > 0)
                 {
-                    var getit = _observers.TryGetTarget(out observersPlaceHolder);
-                    if (getit) { observersPlaceHolder = null; }
-                    return observersPlaceHolder;
+                    _queue.Dequeue().Accept(_msgVisitor);
                 }
             }
-
-            private IObserver<TOut> Observer
-            {
-                get
-                {
-                    var getit = _observer.TryGetTarget(out observerPlaceHolder);
-                    if (getit) { observerPlaceHolder = null; }
-                    return observerPlaceHolder;
-                }
-            }
-
-            public Unsubscriber(List<IObserver<TOut>> observers, IObserver<TOut> observer)
-            {
-                _observers = new WeakReference<List<IObserver<TOut>>>(observers);
-                _observer  = new WeakReference<IObserver<TOut>>(observer);
-            }
-
-            public void Dispose()
-            {
-                if (Observer != null && Observers.Contains(Observer))
-                {
-                    Observers.Remove(Observer);
-                    _observer = null;
-                }
-                _observers = null;
-            }
+            return _shouldStop;
         }
+
+        private void OnEndOfStreamHandler(object sender, EndOfStreamEventArg arg)
+        {
+            _queue      = null;
+            _shouldStop = true;
+            _push(arg.EOS);
+        }
+
+        public void Dispose() => OnEndOfStream -= OnEndOfStreamHandler;
     }
 }
