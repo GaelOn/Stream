@@ -15,7 +15,8 @@ namespace StreamTest
         [TestCase(0,50)]
         public void DataArrayShouldFlowThroughSharedVarInOrder(int timeToWaitWriter, int timeToWaitReader)
         {
-            var data         = new int[10];
+            // GIVEN
+            var data = new int[10];
             var dataReceived = new int[10];
             for (int i = 0; i < 10; i++)
             {
@@ -29,27 +30,25 @@ namespace StreamTest
             int id;
             var isSuccess = reader.TryRegisterReaderHandler(GetReader(timeToWaitReader, dataReceived), out id);
             Action readData = () => reader.Read();
+            // WHEN
             var t1 = Task.Factory.StartNew(GetWriter(timeToWaitWriter, data, writer));
             var t2 = Task.Factory.StartNew(readData);
             var mre = new AutoResetEvent(false);
-            void test(Task task)
+            void testFailureAndSet(Task task)
             {
                 var because = $"all task should be complete, not {task.Status}.";
-                task.Status.Should().Be(TaskStatus.RanToCompletion, because);
-                for (int i = 0; i < 10; i++)
-                {
-                    dataReceived[i].Should().Be(i);
-                }
+                task.Status.Should().Be(TaskStatus.RanToCompletion, because);                
                 mre.Set();
             }
-
+            
             var t = Task.WhenAll(new Task[2] { t1, t2 });
             t.ConfigureAwait(false);
-            t.ContinueWith((i) => test(i), TaskContinuationOptions.NotOnFaulted);
+            // THEN
+            t.ContinueWith((i) => testFailureAndSet(i), TaskContinuationOptions.NotOnFaulted);
             mre.WaitOne();
-            if (t.Status == TaskStatus.Faulted)
+            for (int i = 0; i < 10; i++)
             {
-                throw t.Exception.InnerException;
+                dataReceived[i].Should().Be(i);
             }
         }
 
