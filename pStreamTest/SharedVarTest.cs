@@ -10,8 +10,10 @@ namespace StreamTest
     [TestFixture]
     class SharedVarTest
     {
-        [Test]
-        public void DataArrayShouldFlowThroughSharedVarInOrder()
+        [TestCase(0,0)]
+        [TestCase(50,0)]
+        [TestCase(0,50)]
+        public void DataArrayShouldFlowThroughSharedVarInOrder(int timeToWaitWriter, int timeToWaitReader)
         {
             var data         = new int[10];
             var dataReceived = new int[10];
@@ -24,49 +26,74 @@ namespace StreamTest
             var reader = svar.GetReader();
             var writer = svar.GetWriter();
 
-            Action readData = () =>
-            {
-                foreach (var item in data)
-                {
-                    writer.Push(item);
-                }
-                writer.Stop();
-            };
             int id;
-            var isSuccess = reader.TryRegisterReaderHandler(item => dataReceived[item] = item, out id);
-            Action writeData = () => reader.Read();
-            var t1 = Task.Run(readData);
-            var t2 = Task.Run(writeData);
+            var isSuccess = reader.TryRegisterReaderHandler(GetReader(timeToWaitReader, dataReceived), out id);
+            Action readData = () => reader.Read();
+            var t1 = Task.Run(GetWriter(timeToWaitWriter, data, writer));
+            var t2 = Task.Run(readData);
             var mre = new AutoResetEvent(false);
-            Action<Task> test = (task) =>
-                {
-                    var because = $"all task should be complete, not {task.Status}.";
-                    task.Status.Should().Be(TaskStatus.RanToCompletion, because);
-                    for (int i = 0; i < 10; i++)
-                    {
-                        dataReceived[i].Should().Be(i);
-                    }
-                    mre.Set();
-                };
-            Action<Task> faulted = (task) =>
-                {
-                    Console.WriteLine(task.Exception.ToString());
-                    mre.Set();
-                };
-            Action<Task> toSee = (task) =>
+            void test(Task task)
             {
                 var because = $"all task should be complete, not {task.Status}.";
-                task.Status.Should().Be(TaskStatus.RanToCompletion,because);
-                Console.WriteLine(task.Status.ToString());
+                task.Status.Should().Be(TaskStatus.RanToCompletion, because);
+                for (int i = 0; i < 10; i++)
+                {
+                    dataReceived[i].Should().Be(i);
+                }
                 mre.Set();
-            };
+            }
 
             var t = Task.WhenAll(new Task[2] { t1, t2 });
-            //t.ConfigureAwait(false);
+            t.ConfigureAwait(false);
             t.ContinueWith((i) => test(i), TaskContinuationOptions.NotOnFaulted);
-            //t.ContinueWith((i) => faulted(i), TaskContinuationOptions.OnlyOnFaulted);
-            //t.ContinueWith((i) => toSee(i));
             mre.WaitOne();
+            if (t.Status == TaskStatus.Faulted)
+            {
+                throw t.Exception.InnerException;
+            }
         }
+
+        #region Private helper method
+        private Action GetWriter(int timeWait, int[] data, IWriter<int> writer)
+        {
+            switch (timeWait)
+            {
+                case 0:
+                    return () =>
+                    {
+                        foreach (var item in data)
+                        {
+                            writer.Push(item);
+                        }
+                        writer.Stop();
+                    };
+                default:
+                    return () =>
+                    {
+                        foreach (var item in data)
+                        {
+                            writer.Push(item);
+                            Thread.Sleep(timeWait);
+                        }
+                        writer.Stop();
+                    };
+            }
+        }
+
+        private Action<int> GetReader(int timeWait, int[] data)
+        {
+            switch (timeWait)
+            {
+                case 0:
+                    return (item) => data[item] = item;
+                default:
+                    return (item) =>
+                    {
+                        data[item] = item;
+                        Thread.Sleep(timeWait);
+                    };
+            }
+        } 
+        #endregion
     }
 }

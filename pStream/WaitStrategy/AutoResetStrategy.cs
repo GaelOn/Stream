@@ -18,11 +18,8 @@ namespace pStream.WaitStrategy
         {
             do
             {
+                _mre.WaitOne();
                 _shouldStop = runner();
-                if (!_shouldStop)
-                {
-                    _mre.WaitOne();
-                }
             }
             while (!_shouldStop);
         }
