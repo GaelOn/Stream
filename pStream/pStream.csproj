@@ -5,13 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Workers\" />
-    <Folder Include="Contract\" />
     <Folder Include="Messages\" />
-    <Folder Include="Contract\Messages\" />
-    <Folder Include="Contract\WaitStrategy\" />
-    <Folder Include="WaitStrategy\" />
-    <Folder Include="Contract\Workers\" />
     <Folder Include="Workers\TaskStrategy\" />
   </ItemGroup>
   <PropertyGroup>

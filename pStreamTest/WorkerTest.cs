@@ -30,7 +30,7 @@ namespace StreamTest
                 {
                     qin.Enqueue (new InputMessage<int> (elem));
                 }
-                qin.Enqueue(new EndOfStreamMessage());
+                qin.Enqueue(EndOfStreamMessage.Value);
             }   
             void read ()
             {
@@ -45,7 +45,7 @@ namespace StreamTest
                             case InputMessage<int> input:
                                 outputs.Add (input.Value);
                                 break;
-                            case ErrorMessage<int, Exception> err:
+                            case ErrorMessage<Exception> err:
                                 throw err.Error;
                             case EndOfStreamMessage eos:
                                 shouldEnd = true;

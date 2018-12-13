@@ -15,7 +15,7 @@ namespace pStream.Workers
         private Queue<IMessage> _qin;
         private ConcurrentQueue<IMessage> _qout;
 
-        public TaskWorkStrategy(Func<TIn, TOut> funWork, Queue<IMessage> qin, IWaitStrategy wait, CancellationToken ct = default)
+        public TaskWorkStrategy(Func<TIn, TOut> funWork, Queue<IMessage> qin, IWaitStrategy wait = null, CancellationToken ct = default)
         {
             _qout                    = new ConcurrentQueue<IMessage>();
             var _wait                = wait ?? new SleepStrategy();

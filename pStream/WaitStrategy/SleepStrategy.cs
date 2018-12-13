@@ -15,5 +15,7 @@ namespace pStream.WaitStrategy
                 Thread.Sleep(0);
             }
         }
+
+        public void Signal() { }
     }
 }

@@ -3,18 +3,28 @@ using System.Threading;
 
 namespace pStream.WaitStrategy
 {
-    public class AutoResetStrategy : IControlableWaitStrategy
+    public class AutoResetStrategy : IWaitStrategy
     {
         private bool _shouldStop = false;
-        private readonly AutoResetEvent _mre = new AutoResetEvent(false);
+        private readonly AutoResetEvent _mre;
+
+
+        public AutoResetStrategy(bool initialState = false)
+        {
+            _mre = new AutoResetEvent(initialState);
+        }
 
         public void Run(Func<bool> runner)
         {
-            while (!_shouldStop)
+            do
             {
                 _shouldStop = runner();
-                _mre.WaitOne();
+                if (!_shouldStop)
+                {
+                    _mre.WaitOne();
+                }
             }
+            while (!_shouldStop);
         }
 
         public void Signal()

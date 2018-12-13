@@ -1,6 +1,6 @@
 ﻿namespace pStream.WaitStrategy
 {
-    internal interface IControlableWaitStrategy : IWaitStrategy
+    internal interface IControlableWaitStrategy
     {
         void Signal();
     }

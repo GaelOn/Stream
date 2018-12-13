@@ -7,8 +7,7 @@ namespace Stream.Streams
     {
         private readonly Func<TIn, TOut> _fn;
 
-        private TargetStream(Func<TIn, TOut> fn, IStartable parent)
-            : base(parent) => _fn = fn;
+        private TargetStream(Func<TIn, TOut> fn, IStartable parent) : base(parent) => _fn = fn;
 
         protected override void Flow(TIn input) => _streamer(_fn(input));
 
