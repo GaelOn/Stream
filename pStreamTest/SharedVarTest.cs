@@ -29,8 +29,8 @@ namespace StreamTest
             int id;
             var isSuccess = reader.TryRegisterReaderHandler(GetReader(timeToWaitReader, dataReceived), out id);
             Action readData = () => reader.Read();
-            var t1 = Task.Run(GetWriter(timeToWaitWriter, data, writer));
-            var t2 = Task.Run(readData);
+            var t1 = Task.Factory.StartNew(GetWriter(timeToWaitWriter, data, writer));
+            var t2 = Task.Factory.StartNew(readData);
             var mre = new AutoResetEvent(false);
             void test(Task task)
             {
