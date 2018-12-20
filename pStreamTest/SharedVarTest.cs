@@ -23,16 +23,16 @@ namespace StreamTest
                 data[i]         = i;
                 dataReceived[i] = -1;
             }
-            var svar = new SharedVar<int>();
-            var reader = svar.GetReader();
-            var writer = svar.GetWriter();
 
             int id;
-            var isSuccess = reader.TryRegisterReaderHandler(GetReader(timeToWaitReader, dataReceived), out id);
+            var svar        = new SharedVar<int>();
+            var reader      = svar.GetReader();
+            var writer      = svar.GetWriter();
+            var isSuccess   = reader.TryRegisterReaderHandler(GetReader(timeToWaitReader, dataReceived), out id);
             Action readData = () => reader.Read();
             // WHEN
-            var t1 = Task.Factory.StartNew(GetWriter(timeToWaitWriter, data, writer));
-            var t2 = Task.Factory.StartNew(readData);
+            var t1  = Task.Factory.StartNew(GetWriter(timeToWaitWriter, data, writer));
+            var t2  = Task.Factory.StartNew(readData);
             var mre = new AutoResetEvent(false);
             void testFailureAndSet(Task task)
             {

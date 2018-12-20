@@ -17,7 +17,7 @@ namespace StreamPerfConsole
 
             var qin = new Queue<IMessage>();
             var wait = new SleepStrategy();
-            var worker = new pStream.Workers.TaskWorkStrategy<int, int>(i => i * 2, qin, wait);
+            var worker = new pStream.Workers.TaskWorkerTest<int, int>(i => i * 2, qin, wait);
             var inputs = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             // WHEN
             var outputs = new List<int>(9);

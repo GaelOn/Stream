@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Messages\" />
-    <Folder Include="Workers\TaskStrategy\" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>

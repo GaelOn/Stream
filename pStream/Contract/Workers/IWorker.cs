@@ -4,9 +4,7 @@ namespace pStream.Workers
 {
     internal interface IWorker<TIn>
     {
-        event OnEndOfStreamHandler OnEndOfStream;
-
-        bool Read();
+        event OnEndOfStreamHandler OnEndOfStream;        
         void Start();                
         void RaiseOnEndOfStream();
         void Push(IMessage msg);

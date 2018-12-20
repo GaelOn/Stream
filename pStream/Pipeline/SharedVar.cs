@@ -6,18 +6,18 @@ namespace pStream.Pipeline
 {
     class SharedVar<TIn> : ISharedPipe<TIn>
     {
-        private Synchronizer      _syncRoot        = new Synchronizer(false);
-        private IWaitStrategy     _readerAwaiter   = new AutoResetStrategy();
-        private IWaitOnceStrategy _writerAwaiter   = new AutoResetWaitOnceStrategy(true);
-        private TIn               _pseudoQueue;
+        private readonly Synchronizer      _syncRoot        = new Synchronizer(false);
+        private readonly IWaitStrategy     _readerAwaiter   = new AutoResetStrategy();
+        private readonly IWaitOnceStrategy _writerAwaiter   = new AutoResetWaitOnceStrategy(true);
+        private          TIn               _pseudoQueue;
 
         public IReader<TIn> GetReader() => new SharedReader<TIn>(_readerAwaiter, _writerAwaiter, _syncRoot, () =>_pseudoQueue);
 
         public IWriter<TIn> GetWriter() => new SharedWriter<TIn>(_readerAwaiter,  _writerAwaiter, _syncRoot, (value) => _pseudoQueue = value);
 
-        public Tuple<IReader<TIn>, IWriter<TIn>> GetReaderWriterCouple() => new Tuple<IReader<TIn>, IWriter<TIn>>(GetReader(), GetWriter());
+        public (IReader<TIn>, IWriter<TIn>) GetReaderWriterCouple() => (GetReader(), GetWriter());
 
-        private void Read(Func<bool> reader) => _readerAwaiter.Run(reader);
+        //private void Read(Func<bool> reader) => _readerAwaiter.Run(reader);
 
         private class Synchronizer
         {

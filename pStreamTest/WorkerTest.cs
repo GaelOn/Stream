@@ -1,70 +1,94 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using pStream.Messages;
-using pStream.WaitStrategy;
+using pStream.Pipeline;
 using pStream.Workers;
+using StreamTest.MockObject;
+using System;
 
-namespace StreamTest 
+namespace StreamTest
 {
     [TestFixture]
-    public class WorkerTest 
+    public class WorkerTest
     {
         [Test]
-        public void TaskWorkStrategyTest () 
+        public void InputMessagehouldProduceInputMessageIfNoIssue()
         {
-            // GIVEN
-            var qin    = new Queue<IMessage>();
-            var wait   = new SleepStrategy();
-            var worker = new TaskWorkStrategy<int, int>(i => i*2, qin, wait);
-            var inputs = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-	        var are    = new AutoResetEvent (false);
-            // WHEN
-            var outputs = new List<int> (9);
-            void push ()
+            using (var reader   = new ReadableMock<IMessage>())
+            using (var pipeMock = new PipeableMock<IMessage>())
+            using (var worker   = new Worker<int, int>(new MessageVisitorFactory(), Identity, SharedPipeMockFactory, false))
             {
-                foreach (var elem in inputs) 
-                {
-                    qin.Enqueue (new InputMessage<int> (elem));
-                }
-                qin.Enqueue(EndOfStreamMessage.Value);
-            }   
-            void read ()
-            {
-                IMessage mess = null;
-                var shouldEnd = false;
-                while (!shouldEnd)
-                {
-                    if (worker.Reader.TryDequeue(out mess))
-                    {
-                        switch (mess) 
-                        {
-                            case InputMessage<int> input:
-                                outputs.Add (input.Value);
-                                break;
-                            case ErrorMessage<Exception> err:
-                                throw err.Error;
-                            case EndOfStreamMessage eos:
-                                shouldEnd = true;
-                                break;
-                        }
-                        
-                    }
-                }
-            }
-
-            var tin  = Task.Factory.StartNew(push);
-            var tout = Task.Factory.StartNew(read)
-			                       .ContinueWith((t) => are.Set());
-            // THEN
-	        are.WaitOne ();
-            for (int i = 0; i < 9; i++) 
-            {
-		        outputs[i].Should().Be(inputs[i] * 2);
+                worker.PipeFrom(reader);
+                pipeMock.PipeFrom(worker);
+                reader.Writer.Push(new InputMessage<int>(3));
+                worker.Start();
+                pipeMock.Read();
+                pipeMock.Results[0].Should().BeOfType<InputMessage<int>>();
+                ((InputMessage<int>)pipeMock.Results[0]).Value.Should().Be(3);
             }
         }
+
+        [Test]
+        public void InputMessagehouldProduceIErrorMessageIfIssue()
+        {
+            using (var reader = new ReadableMock<IMessage>())
+            using (var pipeMock = new PipeableMock<IMessage>())
+            using (var worker = new Worker<int, int>(new MessageVisitorFactory(), ThrowError, SharedPipeMockFactory, false))
+            {
+                worker.PipeFrom(reader);
+                pipeMock.PipeFrom(worker);
+                reader.Writer.Push(new InputMessage<int>(3));
+                worker.Start();
+                pipeMock.Read();
+                pipeMock.Results[0].Should().BeOfType<ErrorMessage<Exception>>();
+                ((ErrorMessage<Exception>)pipeMock.Results[0]).Error.Should().BeOfType<TestException>();
+                ((ErrorMessage<Exception>)pipeMock.Results[0]).Error.Message.Should().Be("test");
+            }
+        }
+
+        [Test]
+        public void ErrorMessagehouldProduceErrorMessage()
+        {
+            using (var reader = new ReadableMock<IMessage>())
+            using (var pipeMock = new PipeableMock<IMessage>())
+            using (var worker = new Worker<int, int>(new MessageVisitorFactory(), Identity, SharedPipeMockFactory, false))
+            {
+                worker.PipeFrom(reader);
+                pipeMock.PipeFrom(worker);
+                reader.Writer.Push(new ErrorMessage<Exception>(new TestException()));
+                worker.Start();
+                pipeMock.Read();
+                pipeMock.Results[0].Should().BeOfType<ErrorMessage<Exception>>();
+                ((ErrorMessage<Exception>)pipeMock.Results[0]).Error.Should().BeOfType<TestException>();
+                ((ErrorMessage<Exception>)pipeMock.Results[0]).Error.Message.Should().Be("test");
+            }
+        }
+
+        [Test]
+        public void EndOfStreamShouldProduceEndOfStream()
+        {
+            using (var reader = new ReadableMock<IMessage>())
+            using (var pipeMock = new PipeableMock<IMessage>())
+            using (var worker = new Worker<int, int>(new MessageVisitorFactory(), Identity, SharedPipeMockFactory, false))
+            {
+                worker.PipeFrom(reader);
+                pipeMock.PipeFrom(worker);
+                reader.Writer.Push(EndOfStreamMessage.Value);
+                worker.Start();
+                pipeMock.Read();
+                pipeMock.Results[0].Should().BeOfType<EndOfStreamMessage>();
+            }
+        }
+
+        private class TestException : Exception
+        {
+            public TestException() : base("test") { }
+        }
+
+        private int Identity(int x) => x;
+
+        private int ThrowError(int x) => throw new TestException();
+        
+        private ISharedPipe<IMessage> SharedPipeMockFactory() => new SharedPipeMock<IMessage>();
     }
 }

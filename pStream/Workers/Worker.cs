@@ -1,63 +1,70 @@
 ﻿using System;
-using System.Collections.Generic;
-using pStream.Messages;
-using pStream.WaitStrategy;
+using pStream.Helper;
 using System.Threading;
+using pStream.Messages;
+using pStream.Pipeline;
 
 namespace pStream.Workers
 {
-    internal class Worker<TIn, TOut> : IWorker<TIn>, IDisposable
+    internal sealed class Worker<TIn, TOut> : IWorker<TIn>, IPipeable<IMessage>, IReadable<IMessage>
     {
+        #region Private variables
         private readonly Func<TIn, TOut> _funWork;
-        private readonly Action<IMessage> _push;
-        private Queue<IMessage> _queue;
+        private IReadable<IMessage> _fromReader;
+        private readonly IReader<IMessage> _toReader;
+        private readonly IWriter<IMessage> _writer;
         private readonly IMessageVisitor _msgVisitor;
-        private IWaitStrategy _wait;
-        private bool _shouldStop;
+        private readonly bool _shouldStopOnError;
+        private readonly IUnsubscriber _unsubscriber;
+        #endregion
 
+        #region IWorker<TIn> implementation
         public event OnEndOfStreamHandler OnEndOfStream;
 
-        public void RaiseOnEndOfStream() => Volatile.Read(ref OnEndOfStream)?.Invoke(this, new  EndOfStreamEventArg(EndOfStreamMessage.Value));
+        public void RaiseOnEndOfStream() => Volatile.Read(ref OnEndOfStream)?.Invoke(this, new EndOfStreamEventArg(EndOfStreamMessage.Value));
 
-        public void Push(IMessage msg) => _push(msg);
+        public void Push(IMessage msg) => _writer.Push(msg);
 
         public IMessage DoWork(TIn entry) => new InputMessage<TOut>(_funWork(entry));
 
-        public Worker(IMessageVisitorFactory msgVisitorFactory, IWaitStrategy wait, Func<TIn, TOut> funWork, Queue<IMessage> readQueue, Action<IMessage> push)
+        public Worker(IMessageVisitorFactory msgVisitorFactory, Func<TIn, TOut> funWork, Func<ISharedPipe<IMessage>> pipeFactory, bool shouldStopOnError)
         {
-            _queue         = readQueue;
-            _funWork       = funWork;
-            _push          = push;
-            _wait          = wait;
-            _msgVisitor    = msgVisitorFactory.Create(this);
-            OnEndOfStream += OnEndOfStreamHandler;
+            _funWork             = funWork;
+            _msgVisitor          = msgVisitorFactory.Create(this);
+            OnEndOfStream       += OnEndOfStreamHandler;
+            (_toReader, _writer) = pipeFactory().GetReaderWriterCouple();
+            // Dispose handler
+            _unsubscriber        = new Unsubscriber();
+            // unsubscribe the event on dispose
+            _unsubscriber.RegisterSubscription(() => OnEndOfStream -= OnEndOfStreamHandler);
         }
 
-        public void Start() => _wait?.Run(Read);
+        public void Start() => _fromReader.Reader.Read();
 
-        public bool Read()
+        private void OnEndOfStreamHandler(object sender, EndOfStreamEventArg arg) => Push(arg.EOS);
+        #endregion
+
+        #region IPipeable<IMessage> implementation
+        public void PipeFrom(IReadable<IMessage> reader)
         {
-            if (_queue == null)
+            _fromReader = reader;
+            if (_fromReader.Reader.TryRegisterReaderHandler((msg) => msg.Accept(_msgVisitor), out int id))
             {
-                return true;
-            }
-            if (!_shouldStop)
-            {
-                while (_queue.Count > 0)
+                void UnsubscribeFromReader()
                 {
-                    _queue.Dequeue().Accept(_msgVisitor);
+                    _fromReader.Reader.TryUnregisterReaderHandler(id);
+                    _fromReader.Dispose();
                 }
+                // unsubscribe the message handler, then dispose the from reader.
+                _unsubscriber.RegisterSubscription(UnsubscribeFromReader);
             }
-            return _shouldStop;
         }
+        #endregion
 
-        private void OnEndOfStreamHandler(object sender, EndOfStreamEventArg arg)
-        {
-            _queue      = null;
-            _shouldStop = true;
-            _push(arg.EOS);
-        }
+        #region IReadable<IMessage> implementation
+        IReader<IMessage> IReadable<IMessage>.Reader => _toReader;
 
-        public void Dispose() => OnEndOfStream -= OnEndOfStreamHandler;
+        public void Dispose() => _unsubscriber.Unsubscribe(); 
+        #endregion
     }
 }

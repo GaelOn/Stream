@@ -9,18 +9,18 @@ using pStream.WaitStrategy;
 
 namespace pStream.Workers 
 {
-    internal sealed class TaskWorkStrategy<TIn, TOut> : IWorkStrategy
+    internal sealed class TaskWorkerTest<TIn, TOut> : IWorkStrategy
     {
         private Task _task;
         private Queue<IMessage> _qin;
         private ConcurrentQueue<IMessage> _qout;
 
-        public TaskWorkStrategy(Func<TIn, TOut> funWork, Queue<IMessage> qin, IWaitStrategy wait = null, CancellationToken ct = default)
+        public TaskWorkerTest(Func<TIn, TOut> funWork, Queue<IMessage> qin, IWaitStrategy wait = null, CancellationToken ct = default)
         {
             _qout                    = new ConcurrentQueue<IMessage>();
             var _wait                = wait ?? new SleepStrategy();
             var workerVisitorFactory = new MessageVisitorFactory();
-            var worker               = new Worker<TIn, TOut>(workerVisitorFactory, _wait, funWork, qin, _qout.Enqueue);
+            var worker               = new WorkerTest<TIn, TOut>(workerVisitorFactory, _wait, funWork, qin, _qout.Enqueue);
             ct                       = ct == null ? CancellationToken.None : ct;
             _task                    = Task.Factory.StartNew(() => worker.Start(), ct);
         }
