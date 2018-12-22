@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Stream.Contract;
 using Stream.Extension;
 
 namespace Stream.Streams.Source

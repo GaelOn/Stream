@@ -1,4 +1,4 @@
-﻿namespace Stream.Contract
+﻿namespace Stream
 {
     internal abstract class FlowStream<TIn, TOut> : Stream<TOut, TOut[]>
     {

@@ -1,4 +1,4 @@
-﻿namespace Stream.Contract
+﻿namespace Stream
 {
     public interface IStartable
     {

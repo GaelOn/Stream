@@ -23,4 +23,3 @@ C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\obj\Debug\netstandar
 C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\obj\Debug\netstandard2.0\Stream.AssemblyInfo.cs
 C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\obj\Debug\netstandard2.0\Stream.dll
 C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\obj\Debug\netstandard2.0\Stream.pdb
-C:\Users\dupir\Documents\AllProjects\Projects\Stream\Stream\obj\Debug\netstandard2.0\Stream.csprojAssemblyReference.cache

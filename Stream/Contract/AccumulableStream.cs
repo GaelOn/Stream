@@ -1,4 +1,4 @@
-﻿namespace Stream.Contract
+﻿namespace Stream
 {
     internal abstract class AccumulableStream<TIn, TOut> : Stream<TOut, TOut>
     {

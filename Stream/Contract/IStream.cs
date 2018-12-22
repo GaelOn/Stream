@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Stream.Contract
+namespace Stream
 {
     public interface IStream<TOut, TResult>
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using Stream.Contract;
 using Stream.Streams;
 using Stream.Streams.Folder;
 
