@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using pStream.Messages;
-using pStream.Pipeline;
 using pStream.WaitStrategy;
 using pStream.Workers;
-using StreamTest.MockObject;
 
 namespace StreamTest
 {
