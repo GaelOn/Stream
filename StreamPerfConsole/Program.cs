@@ -6,6 +6,7 @@ namespace StreamPerfConsole
     {
         static void Main(string[] args)
         {
+        
             bool continu = true;
             while (continu)
             {
@@ -14,7 +15,7 @@ namespace StreamPerfConsole
                 Console.WriteLine(" -> thread test press '2',");
                 Console.WriteLine(" -> quit press 'q'.");
                 var k = Console.ReadKey();
-                Console.WriteLine(System.Environment.NewLine);
+                Console.WriteLine(Environment.NewLine);
                 switch (k.KeyChar)
                 {
                     case '1':

@@ -9,14 +9,14 @@ namespace pStream.Workers
     internal sealed class Worker<TIn, TOut> : IWorker<TIn>, IPipeable<IMessage>, IReadable<IMessage>
     {
         #region Private variables
-        private readonly Func<TIn, TOut> _funWork;
-        private IReadable<IMessage> _fromReader;
+        private readonly Func<TIn, TOut>   _funWork;
+        private IReadable<IMessage>        _fromReader;
         private readonly IReader<IMessage> _toReader;
         private readonly IWriter<IMessage> _writer;
-        private readonly IMessageVisitor _msgVisitor;
-        private readonly bool _shouldStopOnError;
-        private readonly IUnsubscriber _unsubscriber;
-        #endregion
+        private readonly IMessageVisitor   _msgVisitor;
+//        private readonly bool              _shouldStopOnError;
+        private readonly IUnsubscriber     _unsubscriber;
+        #endregion  
 
         #region IWorker<TIn> implementation
         public event OnEndOfStreamHandler OnEndOfStream;
