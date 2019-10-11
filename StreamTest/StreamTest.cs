@@ -123,7 +123,7 @@ namespace StreamTests
         [Test]
         public void PerfTest ()
         {
-            // this test is only meaningfull in release mode due to optimization provide by the compilation
+            // this test is only meaningful in release mode due to optimization provide by the compilation
 #if !DEBUG
             var tab = IntArrayProvider(1000000);
 

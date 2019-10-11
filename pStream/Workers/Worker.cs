@@ -16,7 +16,23 @@ namespace pStream.Workers
         private readonly IMessageVisitor   _msgVisitor;
 //        private readonly bool              _shouldStopOnError;
         private readonly IUnsubscriber     _unsubscriber;
-        #endregion  
+        #endregion
+
+        #region Constructor
+
+        public Worker(IMessageVisitorFactory msgVisitorFactory, Func<TIn, TOut> funWork, Func<ISharedPipe<IMessage>> pipeFactory, bool shouldStopOnError)
+        {
+            _funWork = funWork;
+            _msgVisitor = msgVisitorFactory.Create(this);
+            OnEndOfStream += OnEndOfStreamHandler;
+            (_toReader, _writer) = pipeFactory().GetReaderWriterCouple();
+            // Dispose handler
+            _unsubscriber = new Unsubscriber();
+            // unsubscribe the event on dispose
+            _unsubscriber.RegisterSubscription(() => OnEndOfStream -= OnEndOfStreamHandler);
+        }
+
+        #endregion
 
         #region IWorker<TIn> implementation
         public event OnEndOfStreamHandler OnEndOfStream;
@@ -26,18 +42,6 @@ namespace pStream.Workers
         public void Push(IMessage msg) => _writer.Push(msg);
 
         public IMessage DoWork(TIn entry) => new InputMessage<TOut>(_funWork(entry));
-
-        public Worker(IMessageVisitorFactory msgVisitorFactory, Func<TIn, TOut> funWork, Func<ISharedPipe<IMessage>> pipeFactory, bool shouldStopOnError)
-        {
-            _funWork             = funWork;
-            _msgVisitor          = msgVisitorFactory.Create(this);
-            OnEndOfStream       += OnEndOfStreamHandler;
-            (_toReader, _writer) = pipeFactory().GetReaderWriterCouple();
-            // Dispose handler
-            _unsubscriber        = new Unsubscriber();
-            // unsubscribe the event on dispose
-            _unsubscriber.RegisterSubscription(() => OnEndOfStream -= OnEndOfStreamHandler);
-        }
 
         public void Start() => _fromReader.Reader.Read();
 
